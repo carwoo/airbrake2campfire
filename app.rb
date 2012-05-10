@@ -20,11 +20,10 @@ post "/" do
   end
 
 respond_body =<<DOC
-#{hoptoad_data["error"]["error_class"]}: #{hoptoad_data["error"]["error_message"]}<br />
-Environment: #{hoptoad_data["error"]["environment"]}<br />
-Last occurence: #{hoptoad_data["error"]["last_occurred_at"]}<br />
-Times occurred: #{hoptoad_data["error"]["times_occurred"]}<br />
-<a href='#{error_url}'>view on Airbake...</a>
+<a href='#{error_url}'>#{hoptoad_data["error"]["error_message"]}</a><br />
+- environment: #{hoptoad_data["error"]["environment"]}<br />
+- last occurence: #{hoptoad_data["error"]["last_occurred_at"]}<br />
+- times occurred: #{hoptoad_data["error"]["times_occurred"]}<br />
 DOC
 
 
