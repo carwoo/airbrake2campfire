@@ -4,15 +4,31 @@ require 'pry'
 require 'json'
 
 get "/" do
-  "<img style='height: 100%' src='http://blog.stackoverflow.com/wp-content/uploads/error-lolcat-problemz.jpg'>"
+  ""
 end
 
 post "/" do
   token = params[:auth_token]
   room_id = params[:room_id]
+
   hoptoad_data = JSON.parse(request.body.read)
-  respond_body = "#{hoptoad_data["error"]["error_class"]}:#{hoptoad_data["error"]["error_message"]}<br /><a href='http://airbrake.io/projects/#{hoptoad_data["error"]["id"]}/errors'>View on Airbake...</a>"
+
+  error_url = if params[:company]
+    "http://#{params[:company]}.airbrake.io/errors/#{hoptoad_data["error"]["id"]}"
+  else
+    "http://airbrake.io/errors/#{hoptoad_data["error"]["id"]}"
+  end
+
+respond_body =<<DOC
+#{hoptoad_data["error"]["error_class"]}: #{hoptoad_data["error"]["error_message"]}<br />
+Environment: #{hoptoad_data["error"]["environment"]}<br />
+Last occurence: #{hoptoad_data["error"]["last_occurred_at"]}<br />
+Times occurred: #{hoptoad_data["error"]["times_occurred"]}<br />
+<a href='#{error_url}'>view on Airbake...</a>
+DOC
+
+
   hipchat = HipChat::Client.new(token)
-  hipchat[room_id].send("Airbake", respond_body, :color => :red)
+  hipchat[room_id].send("Airbrake", respond_body, :color => :red)
   "Ok"
 end
