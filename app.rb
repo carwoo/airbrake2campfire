@@ -3,10 +3,6 @@ require 'hipchat'
 require 'pry'
 require 'json'
 
-get "/" do
-  ""
-end
-
 post "/" do
   token = params[:auth_token]
   room_id = params[:room_id]
