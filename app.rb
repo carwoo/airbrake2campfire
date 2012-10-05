@@ -15,7 +15,7 @@ post "/" do
     "http://airbrake.io/errors/#{hoptoad_data["error"]["id"]}"
   end
 
-  respond_body = "#{hoptoad_data["error"]["environment"]} :: #{error_url} - #{hoptoad_data["error"]["error_message"]} (#{hoptoad_data["error"]["times_occurred"]} times)"
+  respond_body = " !! Exception on #{hoptoad_data["error"]["environment"]} !! #{hoptoad_data["error"]["error_message"]} (#{hoptoad_data["error"]["times_occurred"]} times) #{error_url}"
 
   campfire = Tinder::Campfire.new ENV['HUBOT_CAMPFIRE_ACCOUNT'], :token => ENV['HUBOT_CAMPFIRE_TOKEN']
 
