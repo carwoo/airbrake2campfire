@@ -1,5 +1,5 @@
 require 'sinatra'
-require 'hipchat'
+require 'tinder'
 require 'pry'
 require 'json'
 
@@ -22,8 +22,10 @@ respond_body =<<DOC
 - times occurred: #{hoptoad_data["error"]["times_occurred"]}<br />
 DOC
 
+  campfire = Tinder::Campfire.new ENV['HUBOT_CAMPFIRE_ACCOUNT'], :token => ENV['HUBOT_CAMPFIRE_TOKEN']
 
-  hipchat = HipChat::Client.new(token)
-  hipchat[room_id].send("Airbrake", respond_body, :color => :red)
+  room = campfire.find_room_by_id ENV['HUBOT_CAMPFIRE_ROOMS']
+  room.speak respond_body
+
   "Ok"
 end
