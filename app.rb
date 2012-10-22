@@ -3,7 +3,7 @@ require 'tinder'
 require 'pry'
 require 'json'
 
-post "/" do
+post "/airbrake" do
   token = params[:auth_token]
   room_id = params[:room_id]
 
