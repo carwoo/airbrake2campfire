@@ -1,13 +1,12 @@
-airbrake2hipchat
-================
+airbrake to Campfire
+====================
 
-Airbrake to Hipchat transport.
+Airbrake to Campfire transport. Add the referenced ENV vars and setup
+tho hook like so:
 
+    http://help.airbrake.io/kb/integrations/webhooks
 
-Just run this somewhere (heroku will do great) and set:
+Inspired by: https://github.com/netguru/airbrake2hipchat
 
-    http://some.where/?auth_token=<hipchat token>&room_id=<hipchat room id>&company=name_of_your_airbrake_subdomain
+Runs great on Heroku.
 
-as your callback url for the project on airbrake (see project settings).
-
-![Example](http://content.screencast.com/users/madsheep/folders/Jing/media/87f54d83-81a4-449d-8a14-e638e7cfe23a/00000023.png)
